@@ -1,27 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
-import SlotMachine from "./components/SlotMachine";
+import FlowDiagram from "./components/FlowDiagram";
+import VisitorCard from "./components/VisitorCard";
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:5000"); // Change for production backend URL
 
 function App() {
-    const [spins, setSpins] = useState([]);
+  const [visitors, setVisitors] = useState([
+    { id: 1, name: "Visitor A", step: null },
+    { id: 2, name: "Visitor B", step: null },
+    { id: 3, name: "Visitor C", step: null },
+  ]);
 
-    useEffect(() => {
-        socket.on("spinUpdate", data => {
-            setSpins(prev => [...prev, data]);
-        });
-        return () => socket.off();
-    }, []);
+  useEffect(() => {
+    socket.on("update", ({ visitorId, step }) => {
+      setVisitors(prev =>
+        prev.map(v => v.id === visitorId ? { ...v, step } : v)
+      );
+    });
 
-    const handleSpin = (userId) => socket.emit("spin", { userId });
+    return () => socket.off();
+  }, []);
 
-    return (
-        <div>
-            <h1>Casino Slot Simulation</h1>
-            <SlotMachine spins={spins} onSpin={() => handleSpin(1)} />
-        </div>
-    );
+  const startFlow = visitorId => socket.emit("startFlow", { visitorId });
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <h1>Casino Visitor Flow Simulator</h1>
+      <FlowDiagram visitors={visitors} />
+      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+        {visitors.map(v => (
+          <VisitorCard key={v.id} visitor={v} startFlow={startFlow} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default App;
