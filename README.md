@@ -1,20 +1,29 @@
 # mongo-websocket-realtime-casino-simulator
-# Casino Visitor Flow Simulator
+# Lunex AI Casino Simulator
 
-A **real-time visitor simulator with casino theme** built with **React.js, Node.js, MongoDB, and WebSocket**.  
-This project demonstrates multiple visitors moving through a simulated flow: **Visitor → Cloudflare → Server → Database**, with smooth animations and live updates.
+A **Lunex-style real-time visitor/casino simulator** built with **React.js, Node.js, MongoDB, and WebSocket**.  
+This project simulates visitors moving through a flow: **Visitor → Cloudflare → Server → Database** with live animations and AI-style visuals.
 
 ---
 
-## 🏗️ Features
+## 🌟 Features
 
-- **Real-time updates** using WebSocket (`Socket.io`)
-- **Visitor simulation**: multiple visitors moving through the flow
-- **Flow visualization**: step-by-step diagram with dynamic highlighting
-- **MongoDB integration**: store visitor steps and logs
-- **Cloudflare delay & error simulation**: 10% chance of error for realism
-- **Simple casino theme**: animated visitor cards and flow
+- Real-time updates with **Socket.io**  
+- Multiple visitors simulation  
+- Animated flow diagram (Visitor → Cloudflare → Server → Database)  
+- MongoDB Atlas integration for storing visitor logs  
+- Cloudflare delay & error simulation (10% chance)  
+- Lunex dark theme UI with neon highlights  
 
 ---
 
 ## 📂 Project Structure
+---
+
+## ⚡ Setup & Running Locally
+
+### 1️⃣ Backend
+```bash
+cd server
+npm install express cors mongoose socket.io
+node server.js
